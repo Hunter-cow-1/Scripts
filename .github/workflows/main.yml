@@ -14,7 +14,6 @@ jobs:
         with:
           node-version: '12.x'
       - name: install packages 
-        run: npm install
-             npm install jsrsasign
+        run: npm install jsrsasign
       - name: run sign
         run: node ./mxbc.js
