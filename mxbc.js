@@ -315,10 +315,12 @@ function Env(t, e) {
 
     return new class {
         constructor(t, e) {
-            this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.startTime = (new Date).getTime(), Object.assign(this, e), this.log("", `🔔${this.name}, 开始!`)
-               log(`\n\n=============================================    \n脚本执行 - 北京时间(UTC+8)：${new Date(
-                new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 +
-                8 * 60 * 60 * 1000).toLocaleString()} \n=============================================\n`);
+            this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", 
+                this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n",
+                this.startTime = (new Date).getTime(), Object.assign(this, e), 
+                this.log("", `🔔${this.name}, 开始!`)
+            
+
         }
 
         isNode() {
