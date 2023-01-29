@@ -1,4 +1,4 @@
-name: 京东华硕爱奇艺
+name: 蜜雪冰城签到
 
 on:
     workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event.repository.owner.id == github.event.sender.id
         steps:
-            - name: 拉取代码
+            - name: 拉取代码和Node环境
               uses: actions/checkout@v2
             - name: Use Node.js
               uses: actions/setup-node@v1
@@ -24,6 +24,6 @@ jobs:
                   npm install axios 
                   npm install request 
                   npm install jsrsasign
-            - name: "运行【京东华硕爱奇艺】"
+            - name: "运行【蜜雪冰城签到】"
               run: |
                   node mxbc.js
