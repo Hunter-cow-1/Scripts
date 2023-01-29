@@ -17,4 +17,4 @@ jobs:
         run: npm install
              npm install jsrsasign
       - name: run sign
-        run: node mxbc.js
+        run: node ./mxbc.js
