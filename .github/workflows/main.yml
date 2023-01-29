@@ -14,6 +14,6 @@ jobs:
         with:
           node-version: '16.x'
       - name: install packages 
-        run: npm install jsrsasign
+        run: npm install axios
       - name: run sign
         run: node ./mxbc.js
