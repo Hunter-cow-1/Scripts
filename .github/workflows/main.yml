@@ -3,7 +3,7 @@ name: 京东华硕爱奇艺
 on:
     workflow_dispatch:
     schedule:
-        - cron: "24 4,10,16 * * *"
+        - cron: "0 8 * * *"
     watch:
         types: [started]
 jobs:
