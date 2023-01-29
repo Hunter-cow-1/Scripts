@@ -19,7 +19,9 @@ jobs:
                   node-version: "12.x"
             - name: 安装依赖包
               run: |
-                  npm install
+                  npm install axios 
+                  npm install request 
+                  npm install jsrsasign
             - name: "运行【京东华硕爱奇艺】"
               run: |
                   node mxbc.js
