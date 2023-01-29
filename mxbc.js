@@ -7,6 +7,10 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaG9uZV8xNDQ5MTgxNDE2Mjk1MzEzNDE
 请求头：Access-Token：XXXXXXX
 变量：export mxbchd = 'XXXXXXX'
 */
+log(`\n\n=============================================    \n脚本执行 - 北京时间(UTC+8)：${new Date(
+                new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 +
+                8 * 60 * 60 * 1000).toLocaleString()} \n=============================================\n`);
+
 const $ = new Env('蜜雪冰城');
 const axios = require('axios');
 let request = require("request");
