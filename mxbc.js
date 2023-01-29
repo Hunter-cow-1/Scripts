@@ -7,6 +7,10 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaG9uZV8xNDQ5MTgxNDE2Mjk1MzEzNDE
 请求头：Access-Token：XXXXXXX
 变量：export mxbchd = 'XXXXXXX'
 */
+const {
+    log
+} = console;
+
 log(`\n\n=============================================    \n脚本执行 - 北京时间(UTC+8)：${new Date(
                 new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 +
                 8 * 60 * 60 * 1000).toLocaleString()} \n=============================================\n`);
@@ -18,9 +22,7 @@ let request = require("request");
 request = request.defaults({
     jar: true
 });
-const {
-    log
-} = console;
+
 const Notify = 1; //0为关闭通知，1为打开通知,默认为1
 const debug = 0; //0为关闭调试，1为打开调试,默认为0
 let mxbchd = ($.isNode() ? process.env.mxbchd : $.getdata("mxbchd")) || ""
