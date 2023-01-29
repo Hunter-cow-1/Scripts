@@ -24,4 +24,4 @@ jobs:
                   npm install jsrsasign
             - name: "运行【京东华硕爱奇艺】"
               run: |
-                  node demo1.js
+                  node mxbc.js
