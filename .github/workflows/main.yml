@@ -1,11 +1,10 @@
 name: 蜜雪冰城签到
 
 on:
-    workflow_dispatch:
-    schedule:
-        - cron: "0 22 * * *"
-    watch:
-        types: [started]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 22 * * *"
+
 jobs:
     build:
         env:
