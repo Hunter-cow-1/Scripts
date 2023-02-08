@@ -3,7 +3,7 @@ name: 蜜雪冰城签到
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 * * *" 
+    - cron: "0 22 * * *" 
     # 0 22 * * *
 
 jobs:
