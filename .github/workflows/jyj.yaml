@@ -4,7 +4,7 @@ name: 敬有家签到
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 10 * * *"
+    - cron: "21 9 * * *"
     
     
     
