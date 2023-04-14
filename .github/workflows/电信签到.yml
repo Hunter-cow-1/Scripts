@@ -1,4 +1,4 @@
-name: 电信营业厅签到
+name: 云雨
 
 on:
   workflow_dispatch:
@@ -12,18 +12,16 @@ jobs:
            chinaTelecomAccount : ${{ secrets.dxAccount }}
         runs-on: ubuntu-latest
         steps:
-            - name: 拉取代码和Node环境
+            - name: 拉取代码
               uses: actions/checkout@v2
-            - name: Use Node.js
-              uses: actions/setup-node@v1
+            - name: Python环境
+              uses: actions/setup-python@v2
               with:
-                  node-version: "16.x"
+                  python-version: 3.9.1
             - name: 安装依赖包
               run: |
-                  npm install axios 
-                  npm install request 
-                  npm install crypto-js
-                  npm install node-rsa
-            - name: "运行【电信营业厅签到】"
+                  python -m pip install --upgrade pip
+                  pip install requests
+            - name: "运行【云雨】"
               run: |
-                  node dxyyt.js
+                  python3 yunyu.py
