@@ -5,7 +5,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import logging
 import json
-
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
 ''''脚本使用说明：
  后缀名改成py
  
@@ -45,7 +47,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 class RainYun():
-
+    msg = ''
     def __init__(self, user: str, pwd: str) -> None:
         # 认证信息
         self.user = user.lower()
@@ -84,6 +86,7 @@ class RainYun():
             url=self.login_url, headers={"Content-Type": "application/json"}, data=self.json_data)
         if res.text.find("200") > -1:
             self.logger.info("登录成功")
+            self.msg += "登陆成功\n"
             self.session.headers.update({
                 "X-CSRF-Token": res.cookies.get("X-CSRF-Token", "")
             })
@@ -99,17 +102,21 @@ class RainYun():
         self.signin_date = datetime.utcnow()
         if res.text.find("200") > -1:
             self.logger.info("成功签到并领取积分")
+            self.msg += "成功签到并领取积分\n"
             self.signin_result = True
         else:
             self.logger.error(f"签到失败，响应信息：{res.text}")
+            self.msg += f"签到失败，响应信息：{res.text}\n"
             self.signin_result = False
 
     def logout(self) -> None:
         res = self.session.post(url=self.logout_url)
         if res.text.find("200") > -1:
             self.logger.info('已退出登录')
+            self.msg += "已退出登录\n"
         else:
             self.logger.warning(f"退出登录时出了些问题，响应信息：{res.text}")
+            self.msg += f"退出登录时出了些问题，响应信息：{res.text}\n"
 
     def query(self) -> None:
         res = self.session.get(url=self.query_url)
@@ -118,8 +125,10 @@ class RainYun():
             data = res.json()["data"]
             self.points = data.get("Points", None) or data["points"]
             self.logger.info("积分查询成功为 " + repr(self.points))
+            self.msg += f"积分查询成功为{repr(self.points)}\n"
         else:
             self.logger.error(f"积分信息失败，响应信息：{res.text}")
+            self.msg += f"积分信息失败，响应信息：{res.text}\n"
 
     def log(self, log_file: str, max_num=5) -> None:
         """存储本次签到结果的日志"""
@@ -150,6 +159,21 @@ class RainYun():
         self.logger.info('日志保存成功')
 
 
+def sendDD(token,title,content):
+    print('开始使用 钉钉机器人 推送消息...', end='')
+    url = f'https://oapi.dingtalk.com/robot/send?access_token={token}'
+    headers = {'Content-Type': 'application/json;charset=utf-8'}
+    data = {
+        'msgtype': 'text',
+        'text': {'content': f'{title}\n\n{content}'}
+    }
+    response = requests.post(url=url, data=json.dumps(data), headers=headers, timeout=15).json()
+    print(response)
+    if not response['errcode']:
+        print('推送成功！')
+    else:
+        print('推送失败！')
+
 if __name__ == '__main__':
     accounts = [
         {
@@ -163,6 +187,8 @@ if __name__ == '__main__':
         ry.signin()  # 签到
         ry.query()  # 查询积分
         ry.logout()  # 登出
+        msg = ry.msg
+        sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '宣文推送服务', msg)
         # 保存日志则打开注释 推荐文件绝对路径
         # file = "./rainyun-signin-log.json"
         # 日志最大记录数量
