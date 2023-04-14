@@ -188,7 +188,7 @@ if __name__ == '__main__':
         ry.query()  # 查询积分
         ry.logout()  # 登出
         msg = ry.msg
-        sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '宣文推送服务', msg)
+        sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '雨云推送服务', msg)
         # 保存日志则打开注释 推荐文件绝对路径
         # file = "./rainyun-signin-log.json"
         # 日志最大记录数量
