@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 # @Time: 2023年04月06日14时26分
-import sendNotify
+from utils.sendNotify import send
 import os
 import requests
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import logging
 import json
-import smtplib
-from email.mime.text import MIMEText
-from email.header import Header
+
 ''''脚本使用说明：
  后缀名改成py
  
@@ -191,7 +189,7 @@ if __name__ == '__main__':
     #     ry.logout()  # 登出
     #     msg = ry.msg
         os.environ["DD_BOT_TOKEN"] = 'e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6'
-        sendNotify.send('雨云推送服务', '测试推送')
+        send('雨云推送服务', '测试推送')
         print(os.environ["DD_BOT_TOKEN"])
         #msg = "测试"
         #sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '雨云推送服务', msg)
