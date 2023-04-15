@@ -161,7 +161,7 @@ async function info() {
                 }
                  if(data.code == 0){
                     //log('customerPoint:'+data.data.customerPoint);
-                     addNotifyStr('ruleValuePoint:'+data.data.ruleValuePoint+'\n', true)
+                     addNotifyStr('customerPoint:'+data.data.customerPoint+'\n', true)
                     }else 
                     //log(data.msg)
                     addNotifyStr(data.msg+'\n', true)
