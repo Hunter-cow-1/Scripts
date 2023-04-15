@@ -26,8 +26,8 @@ let BARK_SOUND = '';
 
 // =======================================telegram机器人通知设置区域===========================================
 //此处填你telegram bot 的Token，telegram机器人通知推送必填项.例如：1077xxx4424:AAFjv0FcqxxxxxxgEMGfi22B4yh15R5uw
-//(环境变量名 TG_BOT_TOKEN)
-let TG_BOT_TOKEN = '';
+//(环境变量名 DD_BOT_ACCESS_TOKEN)
+let DD_BOT_ACCESS_TOKEN = '';
 //此处填你接收通知消息的telegram用户的id，telegram机器人通知推送必填项.例如：129xxx206
 //(环境变量名 TG_USER_ID)
 let TG_USER_ID = '';
@@ -102,8 +102,8 @@ if (process.env.BARK_PUSH) {
     BARK_PUSH = `https://api.day.app/${BARK_PUSH}`
   }
 }
-if (process.env.TG_BOT_TOKEN) {
-  TG_BOT_TOKEN = process.env.TG_BOT_TOKEN;
+if (process.env.DD_BOT_ACCESS_TOKEN) {
+  DD_BOT_ACCESS_TOKEN = process.env.DD_BOT_ACCESS_TOKEN;
 }
 if (process.env.TG_USER_ID) {
   TG_USER_ID = process.env.TG_USER_ID;
@@ -325,9 +325,9 @@ function BarkNotify(text, desp, params={}) {
 
 function tgBotNotify(text, desp) {
   return  new Promise(resolve => {
-    if (TG_BOT_TOKEN && TG_USER_ID) {
+    if (DD_BOT_ACCESS_TOKEN && TG_USER_ID) {
       const options = {
-        url: `https://${TG_API_HOST}/bot${TG_BOT_TOKEN}/sendMessage`,
+        url: `https://${TG_API_HOST}/bot${DD_BOT_ACCESS_TOKEN}/sendMessage`,
         body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -369,7 +369,7 @@ function tgBotNotify(text, desp) {
         }
       })
     } else {
-      console.log('您未提供telegram机器人推送所需的TG_BOT_TOKEN和TG_USER_ID，取消telegram推送消息通知🚫\n');
+      console.log('您未提供telegram机器人推送所需的DD_BOT_ACCESS_TOKEN和TG_USER_ID，取消telegram推送消息通知🚫\n');
       resolve()
     }
   })
