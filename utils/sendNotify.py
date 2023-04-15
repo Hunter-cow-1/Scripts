@@ -30,9 +30,7 @@ DD_BOT_SECRET = ''                                                        # 钉�
 QYWX_APP = ''                                                             # 企业微信应用的QYWX_APP; secrets可填 参考http://note.youdao.com/s/HMiudGkb
 
 notify_mode = []
-
-#os.environ["DD_BOT_ACCESS_TOKEN"] = 'e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6'
-# GitHub action运行需要填写对应的secrets
+print("DD_BOT_ACCESS_TOKEN" in os.environ)
 if "BARK" in os.environ and os.environ["BARK"]:
     BARK = os.environ["BARK"]
 if "SCKEY" in os.environ and os.environ["SCKEY"]:
@@ -234,8 +232,7 @@ def send(title, content):
     :param content:
     :return:
     """
-    print("send()...")
-    print(notify_mode)
+    print(os.environ["DD_BOT_ACCESS_TOKEN"])
     for i in notify_mode:
         if i == 'bark':
             if BARK:
