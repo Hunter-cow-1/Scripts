@@ -212,7 +212,7 @@ async function SendMsg(message) {
     if (Notify > 0) {
         if ($.isNode()) {
             var notify = require('./utils/sendNotify');
-            await notify.sendNotify($.name, message);
+            await notify.sendNotify($.name+"推送服务", message);
         } else {
             $.msg(message);
         }
