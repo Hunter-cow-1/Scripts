@@ -22,4 +22,6 @@ jobs:
                   pip install requests
             - name: "运行【云雨】"
               run: |
+                  env:
+                    DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
                   python3 yuyun.py
