@@ -104,10 +104,11 @@ async function checkin() {
                     log(JSON.stringify(response.data));
                 }
                  if(data.code == 0){
-                    log('ruleValuePoint:'+data.data.ruleValuePoint)
+                    //log('ruleValuePoint:'+data.data.ruleValuePoint)
+                     addNotifyStr('ruleValuePoint:'+data.data.ruleValuePoint+'\n', true)
                     }else 
-                    log(data.msg)
-
+                    //log(data.msg)
+                    addNotifyStr(data.msg+'\n', true)
                     
                 
             } catch (e) {
@@ -159,10 +160,11 @@ async function info() {
                     log(JSON.stringify(response.data));
                 }
                  if(data.code == 0){
-                    log('customerPoint:'+data.data.customerPoint);
+                    //log('customerPoint:'+data.data.customerPoint);
+                     addNotifyStr('ruleValuePoint:'+data.data.ruleValuePoint+'\n', true)
                     }else 
-                    log(data.msg)
-                    
+                    //log(data.msg)
+                    addNotifyStr(data.msg+'\n', true)
                 
             } catch (e) {
                 log(`异常：${data}，原因：${data.message}`)
