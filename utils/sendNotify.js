@@ -26,8 +26,8 @@ let BARK_SOUND = '';
 
 // =======================================telegram机器人通知设置区域===========================================
 //此处填你telegram bot 的Token，telegram机器人通知推送必填项.例如：1077xxx4424:AAFjv0FcqxxxxxxgEMGfi22B4yh15R5uw
-//(环境变量名 DD_BOT_ACCESS_TOKEN)
-let DD_BOT_ACCESS_TOKEN = '';
+//(环境变量名 TG_BOT_TOKEN)
+let TG_BOT_TOKEN = '';
 //此处填你接收通知消息的telegram用户的id，telegram机器人通知推送必填项.例如：129xxx206
 //(环境变量名 TG_USER_ID)
 let TG_USER_ID = '';
@@ -39,8 +39,8 @@ let TG_PROXY_AUTH = '';//tg代理配置认证参数
 let TG_API_HOST = 'api.telegram.org'
 // =======================================钉钉机器人通知设置区域===========================================
 //此处填你钉钉 bot 的webhook，例如：5a544165465465645d0f31dca676e7bd07415asdasd
-//(环境变量名 DD_BOT_TOKEN)
-let DD_BOT_TOKEN = '';
+//(环境变量名 DD_BOT_ACCESS_TOKEN)
+let DD_BOT_ACCESS_TOKEN = '';
 //密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
 let DD_BOT_SECRET = '';
 
@@ -102,8 +102,8 @@ if (process.env.BARK_PUSH) {
     BARK_PUSH = `https://api.day.app/${BARK_PUSH}`
   }
 }
-if (process.env.DD_BOT_ACCESS_TOKEN) {
-  DD_BOT_ACCESS_TOKEN = process.env.DD_BOT_ACCESS_TOKEN;
+if (process.env.TG_BOT_TOKEN) {
+  TG_BOT_TOKEN = process.env.TG_BOT_TOKEN;
 }
 if (process.env.TG_USER_ID) {
   TG_USER_ID = process.env.TG_USER_ID;
@@ -113,8 +113,8 @@ if (process.env.TG_PROXY_HOST) TG_PROXY_HOST = process.env.TG_PROXY_HOST;
 if (process.env.TG_PROXY_PORT) TG_PROXY_PORT = process.env.TG_PROXY_PORT;
 if (process.env.TG_API_HOST) TG_API_HOST = process.env.TG_API_HOST;
 
-if (process.env.DD_BOT_TOKEN) {
-  DD_BOT_TOKEN = process.env.DD_BOT_TOKEN;
+if (process.env.DD_BOT_ACCESS_TOKEN) {
+  DD_BOT_ACCESS_TOKEN = process.env.DD_BOT_ACCESS_TOKEN;
   if (process.env.DD_BOT_SECRET) {
     DD_BOT_SECRET = process.env.DD_BOT_SECRET;
   }
@@ -325,9 +325,9 @@ function BarkNotify(text, desp, params={}) {
 
 function tgBotNotify(text, desp) {
   return  new Promise(resolve => {
-    if (DD_BOT_ACCESS_TOKEN && TG_USER_ID) {
+    if (TG_BOT_TOKEN && TG_USER_ID) {
       const options = {
-        url: `https://${TG_API_HOST}/bot${DD_BOT_ACCESS_TOKEN}/sendMessage`,
+        url: `https://${TG_API_HOST}/bot${TG_BOT_TOKEN}/sendMessage`,
         body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -369,7 +369,7 @@ function tgBotNotify(text, desp) {
         }
       })
     } else {
-      console.log('您未提供telegram机器人推送所需的DD_BOT_ACCESS_TOKEN和TG_USER_ID，取消telegram推送消息通知🚫\n');
+      console.log('您未提供telegram机器人推送所需的TG_BOT_TOKEN和TG_USER_ID，取消telegram推送消息通知🚫\n');
       resolve()
     }
   })
@@ -377,7 +377,7 @@ function tgBotNotify(text, desp) {
 function ddBotNotify(text, desp) {
   return  new Promise(resolve => {
     const options = {
-      url: `https://oapi.dingtalk.com/robot/send?access_token=${DD_BOT_TOKEN}`,
+      url: `https://oapi.dingtalk.com/robot/send?access_token=${DD_BOT_ACCESS_TOKEN}`,
       json: {
         "msgtype": "text",
         "text": {
@@ -389,7 +389,7 @@ function ddBotNotify(text, desp) {
       },
       timeout
     }
-    if (DD_BOT_TOKEN && DD_BOT_SECRET) {
+    if (DD_BOT_ACCESS_TOKEN && DD_BOT_SECRET) {
       const crypto = require('crypto');
       const dateNow = Date.now();
       const hmac = crypto.createHmac('sha256', DD_BOT_SECRET);
@@ -415,7 +415,7 @@ function ddBotNotify(text, desp) {
           resolve(data);
         }
       })
-    } else if (DD_BOT_TOKEN) {
+    } else if (DD_BOT_ACCESS_TOKEN) {
       $.post(options, (err, resp, data) => {
         try {
           if (err) {
@@ -436,7 +436,7 @@ function ddBotNotify(text, desp) {
         }
       })
     } else {
-      console.log('您未提供钉钉机器人推送所需的DD_BOT_TOKEN或者DD_BOT_SECRET，取消钉钉推送消息通知🚫\n');
+      console.log('您未提供钉钉机器人推送所需的DD_BOT_ACCESS_TOKEN或者DD_BOT_SECRET，取消钉钉推送消息通知🚫\n');
       resolve()
     }
   })
@@ -620,7 +620,7 @@ function iGotNotify(text, desp, params={}){
       if(!IGOT_PUSH_KEY_REGX.test(IGOT_PUSH_KEY)) {
         console.log('您所提供的IGOT_PUSH_KEY无效\n')
         resolve()
-        return 
+        return
       }
       const options = {
         url: `https://push.hellyw.com/${IGOT_PUSH_KEY.toLowerCase()}`,
