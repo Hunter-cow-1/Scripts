@@ -22,6 +22,7 @@ jobs:
             - name: 安装依赖包
               run: |
                   npm install
+                  npm install jsrsasign
             - name: "运行【蜜雪冰城签到】"
               run: |
                   node mxbc.js
