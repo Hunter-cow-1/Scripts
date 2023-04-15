@@ -61,7 +61,7 @@ var timestamp = Math.round(new Date().getTime()).toString();
 await checkin()
 await info()
 }
-            //await SendMsg(msg);
+            await SendMsg(msg);
         }
     }
 })()
@@ -160,10 +160,8 @@ async function info() {
                 }
                  if(data.code == 0){
                     log('customerPoint:'+data.data.customerPoint);
-                    await SendMsg('积分:'+data.data.customerPoint);
                     }else 
                     log(data.msg)
-                    await SendMsg(data.msg);
                     
                 
             } catch (e) {

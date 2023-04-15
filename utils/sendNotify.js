@@ -28,8 +28,8 @@ let TG_USER_ID = '';
 
 // =======================================钉钉机器人通知设置区域===========================================
 //此处填你钉钉 bot 的webhook，例如：5a544165465465645d0f31dca676e7bd07415asdasd
-//(环境变量名 DD_BOT_TOKEN)
-let DD_BOT_TOKEN = '';
+//(环境变量名 DD_BOT_ACCESS_TOKEN)
+let DD_BOT_ACCESS_TOKEN = '';
 //密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
 let DD_BOT_SECRET = '';
 
@@ -98,8 +98,8 @@ if (process.env.TG_USER_ID) {
   TG_USER_ID = process.env.TG_USER_ID;
 }
 
-if (process.env.DD_BOT_TOKEN) {
-  DD_BOT_TOKEN = process.env.DD_BOT_TOKEN;
+if (process.env.DD_BOT_ACCESS_TOKEN) {
+  DD_BOT_ACCESS_TOKEN = process.env.DD_BOT_ACCESS_TOKEN;
   if (process.env.DD_BOT_SECRET) {
     DD_BOT_SECRET = process.env.DD_BOT_SECRET;
   }
@@ -276,7 +276,7 @@ function tgBotNotify(text, desp) {
 function ddBotNotify(text, desp) {
   return  new Promise(resolve => {
     const options = {
-      url: `https://oapi.dingtalk.com/robot/send?access_token=${DD_BOT_TOKEN}`,
+      url: `https://oapi.dingtalk.com/robot/send?access_token=${DD_BOT_ACCESS_TOKEN}`,
       json: {
         "msgtype": "text",
         "text": {
@@ -287,7 +287,7 @@ function ddBotNotify(text, desp) {
         'Content-Type': 'application/json'
       }
     }
-    if (DD_BOT_TOKEN && DD_BOT_SECRET) {
+    if (DD_BOT_ACCESS_TOKEN && DD_BOT_SECRET) {
       const crypto = require('crypto');
       const dateNow = Date.now();
       const hmac = crypto.createHmac('sha256', DD_BOT_SECRET);
@@ -313,7 +313,7 @@ function ddBotNotify(text, desp) {
           resolve(data);
         }
       })
-    } else if (DD_BOT_TOKEN) {
+    } else if (DD_BOT_ACCESS_TOKEN) {
       $.post(options, (err, resp, data) => {
         try {
           if (err) {
@@ -334,7 +334,7 @@ function ddBotNotify(text, desp) {
         }
       })
     } else {
-      console.log('您未提供钉钉机器人推送所需的DD_BOT_TOKEN或者DD_BOT_SECRET，取消钉钉推送消息通知\n');
+      console.log('您未提供钉钉机器人推送所需的DD_BOT_ACCESS_TOKEN或者DD_BOT_SECRET，取消钉钉推送消息通知\n');
       resolve()
     }
   })
