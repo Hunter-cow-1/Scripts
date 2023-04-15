@@ -31,6 +31,7 @@ QYWX_APP = ''                                                             # 企�
 
 notify_mode = []
 
+#os.environ["DD_BOT_ACCESS_TOKEN"] = 'e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6'
 # GitHub action运行需要填写对应的secrets
 if "BARK" in os.environ and os.environ["BARK"]:
     BARK = os.environ["BARK"]
@@ -39,11 +40,13 @@ if "SCKEY" in os.environ and os.environ["SCKEY"]:
 if "TG_BOT_TOKEN" in os.environ and os.environ["TG_BOT_TOKEN"] and "TG_USER_ID" in os.environ and os.environ["TG_USER_ID"]:
     TG_BOT_TOKEN = os.environ["TG_BOT_TOKEN"]
     TG_USER_ID = os.environ["TG_USER_ID"]
-if "DD_BOT_ACCESS_TOKEN" in os.environ and os.environ["DD_BOT_ACCESS_TOKEN"] and "DD_BOT_SECRET" in os.environ and os.environ["DD_BOT_SECRET"]:
+if "DD_BOT_ACCESS_TOKEN" in os.environ and os.environ["DD_BOT_ACCESS_TOKEN"]:
     DD_BOT_ACCESS_TOKEN = os.environ["DD_BOT_ACCESS_TOKEN"]
-    DD_BOT_SECRET = os.environ["DD_BOT_SECRET"]
+    print(DD_BOT_ACCESS_TOKEN)
 if "QYWX_APP" in os.environ and os.environ["QYWX_APP"]:
     QYWX_APP = os.environ["QYWX_APP"]
+
+
 
 if BARK:
     notify_mode.append('bark')
@@ -54,7 +57,7 @@ if SCKEY:
 if TG_BOT_TOKEN and TG_USER_ID:
     notify_mode.append('telegram_bot')
     print("Telegram 推送打开")
-if DD_BOT_ACCESS_TOKEN and DD_BOT_SECRET:
+if DD_BOT_ACCESS_TOKEN:
     notify_mode.append('dingding_bot')
     print("钉钉机器人 推送打开")
 if QYWX_APP:
@@ -231,6 +234,8 @@ def send(title, content):
     :param content:
     :return:
     """
+    print("send()...")
+    print(notify_mode)
     for i in notify_mode:
         if i == 'bark':
             if BARK:
@@ -245,7 +250,7 @@ def send(title, content):
                 print('未启用 Server酱')
             continue
         elif i == 'dingding_bot':
-            if DD_BOT_ACCESS_TOKEN and DD_BOT_SECRET:
+            if DD_BOT_ACCESS_TOKEN:
                 dingding_bot(title=title, content=content)
             else:
                 print('未启用 钉钉机器人')
