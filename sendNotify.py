@@ -508,4 +508,5 @@ def send(title, content):
 
 
 if __name__ == '__main__':
+    print("dada")
     send(title, content)
