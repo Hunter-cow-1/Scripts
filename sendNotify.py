@@ -96,7 +96,7 @@ if PUSH_KEY:
 if TG_BOT_TOKEN and TG_USER_ID:
     notify_mode.append('telegram_bot')
     # print("Telegram 推送打开")
-if DD_BOT_TOKEN and DD_BOT_SECRET:
+if DD_BOT_TOKEN:
     notify_mode.append('dingding_bot')
     # print("钉钉机器人 推送打开")
 if QQ_SKEY and QQ_MODE:
