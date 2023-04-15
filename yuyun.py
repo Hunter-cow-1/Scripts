@@ -190,8 +190,9 @@ if __name__ == '__main__':
     #     ry.query()  # 查询积分
     #     ry.logout()  # 登出
     #     msg = ry.msg
-
+        os.environ["DD_BOT_TOKEN"] = 'e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6'
         sendNotify.send('雨云推送服务', '测试推送')
+        print(os.environ["DD_BOT_TOKEN"])
         #msg = "测试"
         #sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '雨云推送服务', msg)
         # 保存日志则打开注释 推荐文件绝对路径
