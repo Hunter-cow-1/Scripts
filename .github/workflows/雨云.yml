@@ -10,9 +10,6 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - name: 获取环境变量
-              env:
-                  DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
             - name: 拉取代码
               uses: actions/checkout@v2
             - name: Set up Python 3.9
@@ -25,4 +22,6 @@ jobs:
                   pip install requests
             - name: "运行【云雨】"
               run: |
+                  env:
+                    DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
                   python3 yuyun.py
