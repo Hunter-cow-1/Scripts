@@ -21,8 +21,7 @@ jobs:
                   node-version: "10.x"
             - name: 安装依赖包
               run: |
-                  npm install axios
-                  npm install requests==2.22.0
+                  npm install
             - name: "运行【蜜雪冰城签到】"
               run: |
                   node mxbc.js
