@@ -175,7 +175,9 @@ def sendDD(token,title,content):
         print('推送失败！')
 
 if __name__ == '__main__':
+
     send('雨云推送服务', '测试推送')
+    print(os.environ["DD_BOT_ACCESS_TOKEN"])
     # accounts = [
     #     {
     #         "user": "Huntercow",  # 账户
