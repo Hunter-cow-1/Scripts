@@ -10,6 +10,7 @@ jobs:
     build:
         env:
            mxbchd: ${{ secrets.mxbchd }}
+           DD_BOT_ACCESS_TOKEN: ${{ secrets.DD_BOT_ACCESS_TOKEN }}
         runs-on: ubuntu-latest
         steps:
             - name: 拉取代码和Node环境
