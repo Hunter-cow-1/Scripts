@@ -61,6 +61,8 @@ if "TG_API_HOST" in os.environ and os.environ["TG_API_HOST"]:
 if "DD_BOT_TOKEN" in os.environ and os.environ["DD_BOT_TOKEN"]:
     DD_BOT_TOKEN = os.environ["DD_BOT_TOKEN"]
     print(DD_BOT_TOKEN)
+else:
+    print("DD_BOT_TOKEN" in os.environ)
 if "QQ_SKEY" in os.environ and os.environ["QQ_SKEY"] and "QQ_MODE" in os.environ and os.environ["QQ_MODE"]:
     QQ_SKEY = os.environ["QQ_SKEY"]
     QQ_MODE = os.environ["QQ_MODE"]
