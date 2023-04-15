@@ -21,7 +21,7 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install requests
             - name: "运行【云雨】"
-              env:
-                  DD_BOT_ACCESS_TOKEN: ${{ secrets.DD_BOT_ACCESS_TOKEN }}
               run: |
                   python3 yuyun.py
+              env:
+                  DD_BOT_ACCESS_TOKEN: ${{ secrets.DD_BOT_ACCESS_TOKEN }}
