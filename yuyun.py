@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time: 2023年04月06日14时26分
+import sendNotify
+import os
 import requests
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -175,20 +177,24 @@ def sendDD(token,title,content):
         print('推送失败！')
 
 if __name__ == '__main__':
-    accounts = [
-        {
-            "user": "Huntercow",  # 账户
-            "password": "Hunter666@"  # 密码
-        }
-    ]
-    for acc in accounts:
-        ry = RainYun(acc["user"], acc["password"])  # 实例
-        ry.login()  # 登录
-        ry.signin()  # 签到
-        ry.query()  # 查询积分
-        ry.logout()  # 登出
-        msg = ry.msg
-        sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '雨云推送服务', msg)
+    # accounts = [
+    #     {
+    #         "user": "Huntercow",  # 账户
+    #         "password": "Hunter666@"  # 密码
+    #     }
+    # ]
+    # for acc in accounts:
+    #     ry = RainYun(acc["user"], acc["password"])  # 实例
+    #     ry.login()  # 登录
+    #     ry.signin()  # 签到
+    #     ry.query()  # 查询积分
+    #     ry.logout()  # 登出
+    #     msg = ry.msg
+        sendNotify.title = '雨云推送服务'
+        sendNotify.content = '测试推送'
+        os.system("python3 ./sendNotify.py")
+        #msg = "测试"
+        #sendDD('e3d7ff9d275f873898705a73424573f19113b1389a64ec6a37f7e964437ce0c6', '雨云推送服务', msg)
         # 保存日志则打开注释 推荐文件绝对路径
         # file = "./rainyun-signin-log.json"
         # 日志最大记录数量

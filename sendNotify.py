@@ -3,7 +3,7 @@
 
 # Modify: Kirin
 
-from curses.ascii import FS
+# from curses.ascii import FS
 import sys
 import os, re
 import requests
@@ -13,12 +13,17 @@ import hmac
 import hashlib
 import base64
 import urllib.parse
-from requests.adapters import HTTPAdapter
-from urllib3.util import Retry
+# from requests.adapters import HTTPAdapter
+# from urllib3.util import Retry
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.split(cur_path)[0]
 sys.path.append(root_path)
+
+
+#内容
+title = ''
+content = ''
 
 # 通知服务
 BARK = ''  # bark服务,自行搜索; secrets可填;
@@ -434,7 +439,7 @@ class WeCom:
         return respone["errmsg"]
 
 
-def  send(title, content):
+def send(title, content):
     """
     使用 bark, telegram bot, dingding bot, server, feishuJ 发送手机推送
     :param title:
@@ -504,5 +509,5 @@ def  send(title, content):
             print('此类推送方式不存在')
 
 
-def main():
-    send('title', 'content')
+if __name__ == '__main__':
+    send(title, content)
