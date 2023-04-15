@@ -16,7 +16,6 @@ const {
 const $ = new Env('蜜雪冰城');
 const axios = require('axios');
 let request = require("request");
-
 request = request.defaults({
     jar: true
 });
@@ -160,10 +159,11 @@ async function info() {
                     log(JSON.stringify(response.data));
                 }
                  if(data.code == 0){
-                    log('customerPoint:'+data.data.customerPoint)
+                    log('customerPoint:'+data.data.customerPoint);
+                    await SendMsg('积分:'+data.data.customerPoint);
                     }else 
                     log(data.msg)
-
+                    await SendMsg(data.msg);
                     
                 
             } catch (e) {
@@ -213,7 +213,7 @@ async function SendMsg(message) {
 
     if (Notify > 0) {
         if ($.isNode()) {
-            var notify = require('./sendNotify');
+            var notify = require('./utils/sendNotify');
             await notify.sendNotify($.name, message);
         } else {
             $.msg(message);
