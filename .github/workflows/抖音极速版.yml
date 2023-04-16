@@ -25,4 +25,4 @@ jobs:
                   npm install jsrsasign
             - name: "运行【抖音极速版】"
               run: |
-                  node mxbc.js
+                  node dyjsb.js
