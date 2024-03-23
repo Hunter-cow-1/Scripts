@@ -16,12 +16,13 @@ tree = etree.HTML(response.text)
 name = tree.xpath('/html/body/div[3]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div[1]/table/tbody[1]/tr/td[1]/div/a/text()')[0]
 time_text = tree.xpath('/html/body/div[3]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div[1]/table/tbody[1]/tr/td[2]/text()')
 time = str(time_text[0]).replace(" ", "").replace("\r", "").replace("\n", "")
-if time == '2023-06-19':
+if time != '2023-06-19':
    msg += time
    msg += '\n'
    msg += name
    send(title='西华大学招生办', content=msg)
 else:
+   send(title='西华大学招生办', content="1")
    print("网站消息未更新")
 
 
