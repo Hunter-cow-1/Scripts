@@ -18,6 +18,9 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 import re
 
+
+
+
 # 通知服务
 BARK = ''                                                                 # bark服务,自行搜索; secrets可填;
 SCKEY = ''                                                                # Server酱的SCKEY; secrets可填
@@ -28,9 +31,12 @@ TG_PROXY_PORT = ''                                                        # tg�
 DD_BOT_ACCESS_TOKEN = ''                                                  # 钉钉机器人的DD_BOT_ACCESS_TOKEN; secrets可填
 DD_BOT_SECRET = ''                                                        # 钉钉机器人的DD_BOT_SECRET; secrets可填
 QYWX_APP = ''                                                             # 企业微信应用的QYWX_APP; secrets可填 参考http://note.youdao.com/s/HMiudGkb
+Wxpusher_Token = ''                                            # wxpusher
+
+os.environ["Wxpusher_Token"] = "AT_UD1jOGeb7VjNRUTdNnFJJYFvMJ9BLzPu"
 
 notify_mode = []
-print("DD_BOT_ACCESS_TOKEN" in os.environ)
+
 if "BARK" in os.environ and os.environ["BARK"]:
     BARK = os.environ["BARK"]
 if "SCKEY" in os.environ and os.environ["SCKEY"]:
@@ -43,7 +49,8 @@ if "DD_BOT_ACCESS_TOKEN" in os.environ and os.environ["DD_BOT_ACCESS_TOKEN"]:
     print(DD_BOT_ACCESS_TOKEN)
 if "QYWX_APP" in os.environ and os.environ["QYWX_APP"]:
     QYWX_APP = os.environ["QYWX_APP"]
-
+if "Wxpusher_Token" in os.environ and os.environ["Wxpusher_Token"]:
+    Wxpusher_Token = os.environ["Wxpusher_Token"]
 
 
 if BARK:
@@ -61,6 +68,9 @@ if DD_BOT_ACCESS_TOKEN:
 if QYWX_APP:
     notify_mode.append('qywxapp_bot')
     print("企业微信应用 推送打开")
+if Wxpusher_Token:
+    notify_mode.append('wxpusher_bot')
+    print("微信pusher 推送打开")
 
 def bark(title, content):
     print("\n")
@@ -225,6 +235,33 @@ def change_user_id(desp):
     else:
         return "@all"
 
+def wxpusher_bot(title, content):
+    app_token = Wxpusher_Token
+
+    data = {
+        "appToken": app_token,
+        "content": content,
+        "summary": title,
+        "contentType": 1,
+        "uids": [
+            "UID_4z4BVpVXy6BdiJrjbMCSDkCZvlKJ"
+        ],
+        "url": "https://wxpusher.zjiecode.com",
+        "verifyPay": False
+    }
+    json_data = json.dumps(data)
+
+    url= "https://wxpusher.zjiecode.com/api/send/message"
+
+    headers = {
+        'Content-Type': "application/json",
+    }
+
+    request = requests.post(url,data=json_data,headers=headers)
+    print("request:", request.text)
+    return request
+
+
 def send(title, content):
     """
     使用 bark, telegram bot, dingding bot, serverJ 发送手机推送
@@ -232,7 +269,6 @@ def send(title, content):
     :param content:
     :return:
     """
-    print(os.environ["DD_BOT_ACCESS_TOKEN"])
     for i in notify_mode:
         if i == 'bark':
             if BARK:
@@ -263,6 +299,12 @@ def send(title, content):
                 qywxapp_bot(title=title, content=content)
             else:
                 print('未启用 企业微信应用推送')
+            continue
+        elif i == 'wxpusher_bot':
+            if Wxpusher_Token:
+                wxpusher_bot(title=title, content=content)
+            else:
+                print('未启用 WxPusher')
             continue
         else:
             print('此类推送方式不存在')
