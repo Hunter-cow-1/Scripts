@@ -33,7 +33,7 @@ DD_BOT_SECRET = ''                                                        # 钉�
 QYWX_APP = ''                                                             # 企业微信应用的QYWX_APP; secrets可填 参考http://note.youdao.com/s/HMiudGkb
 Wxpusher_Token = ''                                            # wxpusher
 
-os.environ["Wxpusher_Token"] = "AT_UD1jOGeb7VjNRUTdNnFJJYFvMJ9BLzPu"
+
 
 notify_mode = []
 
